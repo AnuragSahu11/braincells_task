@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Bounce from "react-reveal/Bounce";
 import Jump from "react-reveal/Jump";
 import Confetti from "react-confetti";
@@ -8,6 +8,29 @@ import "./welcomepage.css";
 const WelcomePage = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const navigate = useNavigate();
+  const [audio] = useState(new Audio("./sound/s1.wav"));
+  const [audioTwo] = useState(new Audio("./sound/s2.wav"));
+  const [audioThree] = useState(new Audio("./sound/s3.wav"));
+  const [audioFour] = useState(new Audio("./sound/s4.wav"));
+  const [audioFive] = useState(new Audio("./sound/s5.wav"));
+
+  useEffect(() => {
+    setTimeout(() => {
+      audio.play();
+    }, 500);
+    setTimeout(() => {
+      audioTwo.play();
+    }, 1500);
+    setTimeout(() => {
+      audioThree.play();
+    }, 2500);
+    setTimeout(() => {
+      audioFour.play();
+    }, 4300);
+    setTimeout(() => {
+      audioFive.play();
+    }, 4500);
+  }, []);
 
   return (
     <div className="welcome_page">
