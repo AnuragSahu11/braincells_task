@@ -2,10 +2,10 @@
   "puzzledata": {
     "background": "./images/background.png",
     "data": [
-      { "img": "./images/bear.png", "name": "bear", "x": "150", "y": "150" },
-      { "img": "./images/frog.png", "name": "frog", "x": "450", "y": "250" },
-      { "img": "./images/tiger.png", "name": "tiger", "x": "300", "y": "450" },
-      { "img": "./images/panda.png", "name": "panda", "x": "900", "y": "500" }
+      { "img": "./images/bear.png", "name": "bear", "x": "40", "y": "150" },
+      { "img": "./images/panda.png", "name": "panda", "x": "600", "y": "200" },
+      { "img": "./images/tiger.png", "name": "tiger", "x": "250", "y": "400" },
+      { "img": "./images/frog.png", "name": "frog", "x": "700", "y": "550" }
     ]
   }
 }

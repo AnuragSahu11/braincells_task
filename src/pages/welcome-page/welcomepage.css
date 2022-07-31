@@ -1,0 +1,16 @@
+.welcome_page {
+  text-align: center;
+  font-size: 4rem;
+  background-color: #ff9800;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  overflow: hidden;
+}
+i {
+  font-size: 5rem;
+}
