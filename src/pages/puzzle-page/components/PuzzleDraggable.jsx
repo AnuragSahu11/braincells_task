@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import Draggable from "react-draggable";
+import { useSpeechSynthesis } from "react-speech-kit";
 
 const PuzzleDraggable = ({
   data: { img, x, y, name },
@@ -16,8 +17,11 @@ const PuzzleDraggable = ({
   const [inPlace, setInPlace] = useState(false);
   const [animate, setAnimate] = useState(false);
   const [isControlled, setIsControlled] = useState(false);
+  const { speak } = useSpeechSynthesis();
 
   let placedCorrectly = false;
+
+  const words = ["Good work", "Bravo", "Well Done", "Kudos"];
 
   const handleDrag = (e, d) => {
     setIsControlled(true);
@@ -37,6 +41,11 @@ const PuzzleDraggable = ({
         setTimeout(() => {
           setAnimate(false);
         }, 1000);
+        speak({
+          text: `${name} placed correctly,${
+            words[Math.floor(Math.random() * words.length)]
+          }`,
+        });
       } else {
         setPosition({ x: d.x, y: d.y });
       }
@@ -47,6 +56,7 @@ const PuzzleDraggable = ({
     setIsControlled(false);
     if (!placedCorrectly) {
       setPosition({ x: 0, y: 0 });
+      speak({ text: "Place animal correctly" });
     }
   };
 
