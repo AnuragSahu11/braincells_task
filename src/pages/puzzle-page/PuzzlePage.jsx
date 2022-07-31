@@ -35,9 +35,7 @@ const PuzzlePage = () => {
           ))}
         </div>
       </div>
-      {gameWon && <div className="puzzle_page_modal">
-            
-        </div>}
+      {gameWon && <div className="puzzle_page_modal"></div>}
     </div>
   );
 };
