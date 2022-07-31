@@ -47,8 +47,8 @@ const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
         x: imgRef.current.getBoundingClientRect().x,
         y: imgRef.current.getBoundingClientRect().y,
       });
-    }, 50);
-  }, []);
+    }, 500);
+  }, [imgRef]);
 
   return (
     <div className="puzzle_draggable">
