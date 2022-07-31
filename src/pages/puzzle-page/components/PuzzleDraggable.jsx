@@ -15,10 +15,12 @@ const PuzzleDraggable = ({
   const [imgCoordinate, setImgCoordinate] = useState(false);
   const [inPlace, setInPlace] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const [isControlled, setIsControlled] = useState(false);
 
   let placedCorrectly = false;
 
   const handleDrag = (e, d) => {
+    setIsControlled(true);
     if (!inPlace) {
       if (
         position.x + imgCoordinate.x - x > 0 &&
@@ -42,6 +44,7 @@ const PuzzleDraggable = ({
   };
 
   const dragStop = () => {
+    setIsControlled(false);
     if (!placedCorrectly) {
       setPosition({ x: 0, y: 0 });
     }
@@ -79,7 +82,11 @@ const PuzzleDraggable = ({
   return (
     <div className="puzzle_draggable">
       <Draggable onDrag={handleDrag} onStop={dragStop} position={position}>
-        <div className="puzzle_draggable_content">
+        <div
+          className={`puzzle_draggable_content ${
+            !isControlled && "transition"
+          }`}
+        >
           <img
             className={animate && "scale"}
             draggable="false"

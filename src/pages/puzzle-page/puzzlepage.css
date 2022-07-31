@@ -44,6 +44,9 @@
 .puzzle_draggable_content {
   max-width: 200px;
 }
+.transition {
+  transition: transform 0.3s;
+}
 .puzzle_draggable_content img {
   transition: transform 0.3s;
   cursor: move;
