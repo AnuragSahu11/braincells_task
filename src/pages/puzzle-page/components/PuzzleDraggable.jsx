@@ -3,22 +3,27 @@ import { useState } from "react";
 import { useRef } from "react";
 import Draggable from "react-draggable";
 
-const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
+const PuzzleDraggable = ({
+  data: { img, x, y, name },
+  setScore,
+  setLoadCount,
+  loadCount,
+}) => {
   const imgRef = useRef();
   const [netSize, setNetSize] = useState({ width: 0, height: 0 });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imgCoordinate, setImgCoordinate] = useState(false);
   const [inPlace, setInPlace] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   let placedCorrectly = false;
 
   const handleDrag = (e, d) => {
     if (!inPlace) {
       if (
-        position.x + imgCoordinate.x > 0 &&
+        position.x + imgCoordinate.x - x > 0 &&
         position.x + imgCoordinate.x - x < 100 &&
-        position.y + imgCoordinate.y > 0 &&
+        position.y + imgCoordinate.y - y > 0 &&
         position.y + imgCoordinate.y - y < 100
       ) {
         setPosition({ x: x - imgCoordinate.x, y: y - imgCoordinate.y });
@@ -26,6 +31,10 @@ const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
         placedCorrectly = true;
         imgRef.current.dispatchEvent(new Event("mouseup"));
         setScore((prevState) => prevState + 1);
+        setAnimate(true);
+        setTimeout(() => {
+          setAnimate(false);
+        }, 1000);
       } else {
         setPosition({ x: d.x, y: d.y });
       }
@@ -39,7 +48,7 @@ const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
   };
 
   useEffect(() => {
-    if (imgLoaded) {
+    if (loadCount === 0) {
       setNetSize({
         width: imgRef.current.width,
         height: imgRef.current.height,
@@ -47,9 +56,16 @@ const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
       setImgCoordinate({
         x: imgRef.current.getBoundingClientRect().x,
         y: imgRef.current.getBoundingClientRect().y,
+        height: imgRef.current.getBoundingClientRect().height,
+        width: imgRef.current.getBoundingClientRect().width,
       });
+      console.log(name, imgRef.current.getBoundingClientRect());
     }
-  }, [imgLoaded]);
+  }, [loadCount]);
+
+  const onImageLoad = () => {
+    setLoadCount((prevState) => prevState - 1);
+  };
 
   useEffect(() => {
     if (imgCoordinate) {
@@ -65,13 +81,12 @@ const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
       <Draggable onDrag={handleDrag} onStop={dragStop} position={position}>
         <div className="puzzle_draggable_content">
           <img
+            className={animate && "scale"}
             draggable="false"
             ref={imgRef}
             src={img}
             alt=""
-            onLoad={() => {
-              setImgLoaded(true);
-            }}
+            onLoad={onImageLoad}
           />
         </div>
       </Draggable>
@@ -82,7 +97,9 @@ const PuzzleDraggable = ({ data: { img, x, y }, setScore }) => {
           width: `${netSize.width}px`,
           height: `${netSize.height}px`,
         }}
-        className="puzzle_draggable_net"
+        className={`puzzle_net ${animate && "puzzle_net_green"} ${
+          !inPlace && "puzzle_net_show"
+        }`}
       ></div>
     </div>
   );

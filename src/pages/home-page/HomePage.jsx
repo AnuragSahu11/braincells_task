@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <button onClick={clickHandler} className="homepage_button">
-        Start
+        Start Photoplay
       </button>
     </div>
   );
