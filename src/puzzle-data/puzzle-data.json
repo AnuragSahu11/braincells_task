@@ -5,7 +5,7 @@
       { "img": "./images/bear.png", "name": "bear", "x": "40", "y": "150" },
       { "img": "./images/panda.png", "name": "panda", "x": "600", "y": "200" },
       { "img": "./images/tiger.png", "name": "tiger", "x": "250", "y": "400" },
-      { "img": "./images/frog.png", "name": "frog", "x": "700", "y": "600" }
+      { "img": "./images/frog.png", "name": "frog", "x": "700", "y": "550" }
     ]
   }
 }
